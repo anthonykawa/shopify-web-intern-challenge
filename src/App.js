@@ -10,8 +10,8 @@ import Nominations from "./components/Nominations";
 import axios from "axios";
 import "./App.css";
 
-const OMDB_URL = process.env.OMDB_URL || "http://www.omdbapi.com";
-const OMDB_API_KEY = process.env.OMDB_API_KEY || "8b5bad04";
+const OMDB_URL = process.env.REACT_APP_OMDB_URL || "http://www.omdbapi.com";
+const OMDB_API_KEY = process.env.REACT_APP_OMDB_API_KEY || "8b5bad04";
 
 function App() {
   const [searchString, setSearchString] = useState("");
