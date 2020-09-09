@@ -14,7 +14,8 @@
     "react-dom": "^16.13.1",
     "react-js-pagination": "^3.0.3",
     "react-scripts": "3.4.3",
-    "styled-components": "^5.2.0"
+    "styled-components": "^5.2.0",
+    "use-state-persist": "^0.2.2"
   },
   "scripts": {
     "start": "react-scripts start",

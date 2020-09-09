@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import {useStatePersist} from 'use-state-persist';
 import { Paper, Grid, Typography } from "@material-ui/core";
 import styled from "styled-components";
 
@@ -16,7 +17,8 @@ const OMDB_API_KEY = process.env.REACT_APP_OMDB_API_KEY || "8b5bad04";
 function App() {
   const [searchString, setSearchString] = useState("");
   const [page, setPage] = useState(1);
-  const [nominations, setNominations] = useState({});
+  // const [nominations, setNominations] = useState({});
+  const [nominations, setNominations] = useStatePersist("nominations", {});
   const [searchResults, setSearchResults] = useState({
     Response: "False",
     Search: [],
