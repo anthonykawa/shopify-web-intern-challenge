@@ -7,6 +7,7 @@ const SearchResults = ({
   searchString,
   addNominee,
   nominations,
+  open
 }) => {
     const searchItems = searchResults.Search
   if (searchResults.Error || searchString < 3) {
@@ -26,7 +27,7 @@ const SearchResults = ({
                 <li key={searchItem.imdbID}>
                   {searchItem.Title} ({searchItem.Year})
                   <StyledButton
-                    disabled={nominations[searchItem.imdbID] ? true : false}
+                    disabled={nominations[searchItem.imdbID] || open ? true : false}
                     disableElevation
                     size="small"
                     variant="contained"

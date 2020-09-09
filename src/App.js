@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import {useStatePersist} from 'use-state-persist';
-import { Paper, Grid, Typography } from "@material-ui/core";
+import { Paper, Grid, Typography, Snackbar } from "@material-ui/core";
+import { Alert } from "@material-ui/lab";
 import styled from "styled-components";
 
 import Search from "./components/Search";
@@ -24,6 +25,7 @@ function App() {
     Search: [],
     totalResults: "0",
   });
+  const [open, setOpen] = useStatePersist("snackbar", false);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -36,7 +38,6 @@ function App() {
           }`
         )
         .then((res) => {
-          console.log(res.data);
           setLoading(false);
           if (res.data.Response === "True") {
             setSearchResults({
@@ -51,7 +52,15 @@ function App() {
           setLoading(false);
         });
     }
-  }, [searchString, page]);
+  }, [searchString, page, setLoading]);
+
+  useEffect(() => {
+    if(Object.keys(nominations).length > 4){
+      setOpen(true);
+    } else {
+      setOpen(false);
+    }
+  }, [nominations, setOpen])
 
   const addNominee = (id, title) => {
     const newNominations = {...nominations};
@@ -70,7 +79,10 @@ function App() {
   };
   return (
     <div className="App">
-      <Typography variant="h3" component="h1">The Shoppies</Typography>
+    <Snackbar open={open}>
+      <Alert variant="filled" severity="warning">You've already selected 5 nominations</Alert>
+    </Snackbar>
+      <Typography style={{marginBottom: '15px'}} variant="h3" component="h1">The Shoppies</Typography>
       <Grid container spacing={3}>
         <Grid item xs={12}>
           <StyledPaper>
@@ -81,8 +93,8 @@ function App() {
           </StyledPaper>
         </Grid>
         <Grid item sm={12} md={6}>
-          <StyledPaper minHeight="200">
-            <SearchResults nominations={nominations} addNominee={addNominee} searchResults={searchResults} searchString={searchString} />
+          <StyledPaper minheight="200">
+            <SearchResults open={open} nominations={nominations} addNominee={addNominee} searchResults={searchResults} searchString={searchString} />
             <Pagination
               totalItems={Number(searchResults.totalResults)}
               setPage={setPage}
@@ -91,7 +103,7 @@ function App() {
           </StyledPaper>
         </Grid>
         <Grid item sm={12} md={6}>
-          <StyledPaper minHeight="200">
+          <StyledPaper minheight="200">
             <Nominations removeNominee={removeNominee} nominations={Object.entries(nominations)} />
           </StyledPaper>
         </Grid>
@@ -102,7 +114,7 @@ function App() {
 
 const StyledPaper = styled(Paper)`
   padding: 15px;
-  min-height: ${(props) => props.minHeight}px;
+  min-height: ${(props) => props.minheight}px;
 `;
 
 export default App;

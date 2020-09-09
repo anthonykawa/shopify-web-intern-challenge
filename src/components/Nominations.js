@@ -11,10 +11,11 @@ const Nominations = ({ nominations, removeNominee }) => {
       <UL>
         {nominations.map((nomination) => {
           return (
-            <li>
+            <li key={nomination[0]}>
               {nomination[1]}
               <StyledButton
                 disableElevation
+                disableTouchRipple
                 size="small"
                 variant="contained"
               >

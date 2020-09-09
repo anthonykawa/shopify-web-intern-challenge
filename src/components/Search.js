@@ -1,5 +1,5 @@
 import React from 'react';
-import {InputBase, Paper, InputAdornment, Input} from '@material-ui/core';
+import {InputBase, Paper, InputAdornment} from '@material-ui/core';
 import {Search as SearchIcon} from '@material-ui/icons';
 import styled from 'styled-components';
 
@@ -8,7 +8,7 @@ const Search = ({searchString, handleSearchChange}) => {
         <div>
             <p>Movie title</p>
             <StyledPaper component="form">
-                <InputBase
+                <StyledInputBase
                     startAdornment={
                         <InputAdornment position="start">
                             <SearchIcon />
@@ -26,6 +26,10 @@ const Search = ({searchString, handleSearchChange}) => {
 
 const StyledPaper = styled(Paper)`
     padding: 0 5px;
+`;
+
+const StyledInputBase = styled(InputBase)`
+    width: 100%;
 `;
 
 export default Search;
